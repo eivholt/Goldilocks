@@ -1,0 +1,6 @@
+{
+    "sketch": "MiniUltra8MhzNbIotUdp.ino",
+    "board": "arduino:avr:pro",
+    "configuration": "cpu=8MHzatmega328",
+    "port": "COM12"
+}
