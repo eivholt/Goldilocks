@@ -63,6 +63,7 @@ void loop() {
     while (true) 
     { 
       PyroRead = 0; // Reset readings
+      IR_lastEdge = 0;
       // Enter power down state with ADC and BOD module disabled.
       // Wake up when wake up pin is low.
       Serial.println("Sleep.");
@@ -74,22 +75,26 @@ void loop() {
       // Disable external pin interrupt on wake up pin.
       detachInterrupt(digitalPinToInterrupt(PyroPin)); 
       
-      //Measure trigger point
-      PyroRead = pulseIn(PyroPin, LOW); 
+      unsigned long PyroReadStart = micros();
+      while(digitalRead(PyroPin) == HIGH)
+      {
+        // Do nothing, wait for falling edge.
+      }
+      PyroRead = micros() - PyroReadStart;
+      IR_lastEdge = micros();
 
       //Make sure trigger is over 198msec)
-      Serial.print("PyroRead1: "); Serial.println(PyroRead);
+      //Serial.print("PyroRead1: "); Serial.println(PyroRead);
       if (PyroRead > Sensor_PulseWidth) 
       { 
-        IR_lastEdge = micros();
         Serial.print("PyroRead1: "); Serial.println(PyroRead);
         //IR_sensed++; //Mark as a good trigger
 
         PyroRead = 0;
         //Measure trigger point
-        PyroRead = pulseIn(PyroPin, HIGH, Sensor_PulseSpace);
+        PyroRead = pulseIn(PyroPin, HIGH); //, Sensor_PulseSpace + Sensor_PulseWidth/10);
         Serial.print("PyroRead2: "); Serial.println(PyroRead);
-        if (PyroRead > Sensor_PulseWidth/2) 
+        if (PyroRead > Sensor_PulseWidth) 
         {
           Serial.print("PyroRead2: "); Serial.println(PyroRead);
           //IR_sensed++; //Mark as a good trigger
