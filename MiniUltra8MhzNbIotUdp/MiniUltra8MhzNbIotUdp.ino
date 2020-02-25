@@ -21,7 +21,7 @@ TelenorNBIoT nbiot("mda.ee", 242, 01);
 // The remote IP address to send data packets to
 // u-blox SARA N2 does not support DNS
 IPAddress remoteIP(172, 16, 15, 14);
-int REMOTE_PORT = 1234;
+unsigned int REMOTE_PORT = 1234;
 unsigned long INTERVAL_MS = (unsigned long) 15 * 1000;
 
 const int PyroPin = 3;
@@ -29,6 +29,7 @@ unsigned long PyroRead = 0;
 unsigned long Sensor_PulseWidth = 198000;
 unsigned long Sensor_PulseSpace = 420000;
 unsigned long IR_lastEdge = 0;
+unsigned int Sensor_Warmup_MS = 30*1000;
 // Note: SS-430 has two pulses of 200msec per detection.
 // IR_threshold is in microsec (usec), therefore 198msec threshold 
 
@@ -42,85 +43,68 @@ void wakeUp()
     // Serial.flush();
 }
 
-void setup() {
+void powerDownInterrupt()
+{
+  // Enter power down state with ADC and BOD module disabled.
+  // Wake up when wake up pin is rising.
+  // Allow wake up pin to trigger interrupt on low.
+  attachInterrupt(digitalPinToInterrupt(PyroPin), wakeUp, RISING);
+  LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF); 
+  // Disable external pin interrupt on wake up pin.
+  detachInterrupt(digitalPinToInterrupt(PyroPin)); 
+}
+
+void setup() 
+{
   pinMode(PyroPin, INPUT); // IR Sensor connected to 3
   pinMode(LED_BUILTIN, OUTPUT); //LED Connected to Pin 7
   Serial.begin(115200);
 
-  Serial.print("Connecting to NB-IoT module...\n");
+  Serial.print(F("Connecting to NB-IoT module...\n"));
   ublox.begin(9600);
   nbiot.begin(ublox);
   nbiot.createSocket();
-  Serial.println("NB-IoT module connected.");
+  Serial.println(F("NB-IoT module connected."));
+  Serial.flush();
 } 
  
-void loop() {
-  
+void loop() 
+{
   // Wait 30s to let sensor warm up
-  if(millis() > 30*1000)
+  if(millis() > Sensor_Warmup_MS)
   {
-    //Break after 2 good triggers 
+    //Break after 2 close pulses 
     while (true) 
     { 
       PyroRead = 0; // Reset readings
       IR_lastEdge = 0;
-      // Enter power down state with ADC and BOD module disabled.
-      // Wake up when wake up pin is low.
-      Serial.println("Sleep.");
-      Serial.flush();
-      //LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
-      // Allow wake up pin to trigger interrupt on low.
-      attachInterrupt(digitalPinToInterrupt(PyroPin), wakeUp, RISING);
-      LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF); 
-      // Disable external pin interrupt on wake up pin.
-      detachInterrupt(digitalPinToInterrupt(PyroPin)); 
       
+      Serial.println(F("Sleeping, ready for input."));
+      Serial.flush();
+      powerDownInterrupt();
       unsigned long PyroReadStart = micros();
       while(digitalRead(PyroPin) == HIGH)
       {
         // Do nothing, wait for falling edge.
       }
+
       PyroRead = micros() - PyroReadStart;
       IR_lastEdge = micros();
 
       //Make sure trigger is over 198msec)
-      //Serial.print("PyroRead1: "); Serial.println(PyroRead);
       if (PyroRead > Sensor_PulseWidth) 
       { 
-        Serial.print("PyroRead1: "); Serial.println(PyroRead);
-        //IR_sensed++; //Mark as a good trigger
-
+        Serial.print(F("PyroRead1: ")); Serial.println(PyroRead);
         PyroRead = 0;
         //Measure trigger point
         PyroRead = pulseIn(PyroPin, HIGH); //, Sensor_PulseSpace + Sensor_PulseWidth/10);
-        Serial.print("PyroRead2: "); Serial.println(PyroRead);
         if (PyroRead > Sensor_PulseWidth) 
         {
-          Serial.print("PyroRead2: "); Serial.println(PyroRead);
-          //IR_sensed++; //Mark as a good trigger
-          
+          Serial.print(F("PyroRead2: ")); Serial.println(PyroRead);          
           break;
         }
-
-        // while((micros() - IR_lastEdge) < Sensor_PulseSpace)
-        // {
-        //   PyroRead = 0;
-        //   //Measure trigger point
-        //   PyroRead = pulseIn(PyroPin, HIGH, Sensor_PulseSpace);
-        //   Serial.print("PyroRead2: "); Serial.println(PyroRead);
-        //   if (PyroRead > Sensor_PulseWidth/2) 
-        //   {
-        //     Serial.print("PyroRead2: "); Serial.println(PyroRead);
-        //     IR_sensed++; //Mark as a good trigger
-            
-        //     break;
-        //   }
-        // }
       }
     }
-
-    PyroRead = 0; // Reset readings
-    IR_sensed = 0;
 
     // Turn LED OFF if it was previous ON
     if (Detected == HIGH) 
@@ -135,13 +119,13 @@ void loop() {
     if (nbiot.isConnected()) {
       // Successfully connected to the network
       // Send message to remote server
-      Serial.println("Sending data");
+      Serial.println(F("Sending data"));
       String payload = 
           String(Detected);
       if (true == nbiot.sendString(remoteIP, REMOTE_PORT, payload)) {
-        Serial.print("Successfully sent data: ");
+        Serial.print(F("Successfully sent data: "));
       } else {
-        Serial.print("Failed sending data: ");
+        Serial.print(F("Failed sending data: "));
       }
       Serial.println(payload);
     }
