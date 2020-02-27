@@ -1,0 +1,84 @@
+{
+    "resourceType": "Bundle",
+    "type": "collection",
+    "entry": [
+      {
+        "resource": {
+          "resourceType": "Location",
+          "id": "0",
+          "status": "active",          
+          "name": "Vollen Nursing Home",
+          "mode": "instance"
+        },
+        "request": {
+          "method": "POST"
+        }
+      },
+      {
+        "resource": {
+          "resourceType": "Location",
+          "id": "1",
+          "status": "active",
+          "operationalStatus" : {
+            "system" : "http://hl7.org/fhir/v2/0116",
+            "version" : "2.8.2",
+            "code" : "O",
+            "display" : "Occupied"
+          },
+          "name": "Bed #1",
+          "mode": "instance",
+          "partOf": {
+            "reference": "Location/0",
+            "display": "Vollen"
+          }
+        },
+        "request": {
+          "method": "POST"
+        }
+      },
+      {
+        "resource": {
+          "resourceType": "Location",
+          "id": "2",
+          "status": "active",
+          "operationalStatus" : {
+            "system" : "http://hl7.org/fhir/v2/0116",
+            "version" : "2.8.2",
+            "code" : "U",
+            "display" : "Unoccupied"
+          },
+          "name": "Bed #2",
+          "mode": "instance",
+          "partOf": {
+            "reference": "Location/0",
+            "display": "Vollen"
+          }
+        },
+        "request": {
+          "method": "POST"
+        }
+      },
+      {
+        "resource": {
+          "resourceType": "Location",
+          "id": "3",
+          "status": "active",
+          "operationalStatus" : {
+            "system" : "http://hl7.org/fhir/v2/0116",
+            "version" : "2.8.2",
+            "code" : "U",
+            "display" : "Unoccupied"
+          },
+          "name": "Bed #3",
+          "mode": "instance",
+          "partOf": {
+            "reference": "Location/0",
+            "display": "Vollen"
+          }
+        },
+        "request": {
+          "method": "POST"
+        }
+      }
+    ]
+  }
