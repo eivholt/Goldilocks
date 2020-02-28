@@ -1,19 +1,8 @@
 {
     "resourceType": "Bundle",
-    "type": "collection",
+    "type": "transaction",
     "entry": [
-      {
-        "resource": {
-          "resourceType": "Location",
-          "id": "0",
-          "status": "active",          
-          "name": "Vollen Nursing Home",
-          "mode": "instance"
-        },
-        "request": {
-          "method": "POST"
-        }
-      },
+      
       {
         "resource": {
           "resourceType": "Location",
@@ -28,7 +17,7 @@
           "name": "Bed #1",
           "mode": "instance",
           "partOf": {
-            "reference": "Location/0",
+            "reference": "Location/116620cd-99c5-40d8-980a-92494dedd9a9",
             "display": "Vollen"
           }
         },
@@ -50,7 +39,7 @@
           "name": "Bed #2",
           "mode": "instance",
           "partOf": {
-            "reference": "Location/0",
+            "reference": "Location/116620cd-99c5-40d8-980a-92494dedd9a9",
             "display": "Vollen"
           }
         },
@@ -72,7 +61,7 @@
           "name": "Bed #3",
           "mode": "instance",
           "partOf": {
-            "reference": "Location/0",
+            "reference": "Location/116620cd-99c5-40d8-980a-92494dedd9a9",
             "display": "Vollen"
           }
         },
