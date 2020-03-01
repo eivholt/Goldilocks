@@ -1,0 +1,11 @@
+SELECT
+    msg.device.tags.name as DeviceName,
+    msg.device.deviceid as DeviceId,
+    DATEADD(MILLISECOND, msg.received % 1000, DATEADD(SECOND, msg.received / 1000, '1970-01-01T00:00:00Z')) as Received,
+    udf.Hex2Int(udf.Base64(msg.payload)) as PayloadInt
+INTO
+    [IotaPublisherFunctionApp]
+FROM
+    [eHealthIoTHubInput] msg
+WHERE
+    msg.device.collectionId LIKE '17dh0cf43jg046'
