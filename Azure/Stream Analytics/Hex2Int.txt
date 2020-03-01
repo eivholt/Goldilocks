@@ -1,0 +1,3 @@
+function hex2Int(hexValue) {
+    return parseInt(hexValue, 16);
+}
