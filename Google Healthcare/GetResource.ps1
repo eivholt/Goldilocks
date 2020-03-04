@@ -4,7 +4,7 @@ $PROJECT_ID = "iothealthcare-269209"
 $LOCATION = "europe-west4"
 $DATASET_ID = "IoTHealthcareDataset"
 $FHIR_STORE_ID = "LocationsDataStore"
-$RESOURCE_ID = "38d1495c-1e36-4789-91fc-bd09e7f42b3c"
+$RESOURCE_ID = "e896887e-c3ec-4c88-aa59-f17dc942ccd0"
 
 Invoke-RestMethod `
   -Method Get `

@@ -1,0 +1,1 @@
+﻿$env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\eih\Documents\Google Healthcare\IoTHealthCare-1845fa681146.json"

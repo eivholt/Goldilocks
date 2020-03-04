@@ -83,3 +83,6 @@ Arduino_M1_MQTT/PubSubClient.h
 
 Arduino_M1_MQTT/README.md
 /Resources
+/Google Healthcare/GoogleHealthcareTestConsoleApp/obj
+/Google Healthcare/GoogleHealthcareTestConsoleApp/.vs/GoogleHealthcareTestConsoleApp/DesignTimeBuild
+/Google Healthcare/GoogleHealthcareTestConsoleApp/.vs/GoogleHealthcareTestConsoleApp/v16/Server/sqlite3
