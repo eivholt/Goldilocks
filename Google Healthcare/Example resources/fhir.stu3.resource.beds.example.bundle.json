@@ -2,11 +2,9 @@
     "resourceType": "Bundle",
     "type": "transaction",
     "entry": [
-      
       {
         "resource": {
           "resourceType": "Location",
-          "id": "1",
           "status": "active",
           "operationalStatus" : {
             "system" : "http://hl7.org/fhir/v2/0116",
@@ -17,7 +15,7 @@
           "name": "Bed #1",
           "mode": "instance",
           "partOf": {
-            "reference": "Location/116620cd-99c5-40d8-980a-92494dedd9a9",
+            "reference": "Location/38d1495c-1e36-4789-91fc-bd09e7f42b3c",
             "display": "Vollen"
           }
         },
@@ -28,7 +26,6 @@
       {
         "resource": {
           "resourceType": "Location",
-          "id": "2",
           "status": "active",
           "operationalStatus" : {
             "system" : "http://hl7.org/fhir/v2/0116",
@@ -39,7 +36,7 @@
           "name": "Bed #2",
           "mode": "instance",
           "partOf": {
-            "reference": "Location/116620cd-99c5-40d8-980a-92494dedd9a9",
+            "reference": "Location/38d1495c-1e36-4789-91fc-bd09e7f42b3c",
             "display": "Vollen"
           }
         },
@@ -50,7 +47,6 @@
       {
         "resource": {
           "resourceType": "Location",
-          "id": "3",
           "status": "active",
           "operationalStatus" : {
             "system" : "http://hl7.org/fhir/v2/0116",
@@ -61,7 +57,7 @@
           "name": "Bed #3",
           "mode": "instance",
           "partOf": {
-            "reference": "Location/116620cd-99c5-40d8-980a-92494dedd9a9",
+            "reference": "Location/38d1495c-1e36-4789-91fc-bd09e7f42b3c",
             "display": "Vollen"
           }
         },

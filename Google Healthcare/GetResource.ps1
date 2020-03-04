@@ -3,8 +3,8 @@ $headers = @{ Authorization = "Bearer $cred" }
 $PROJECT_ID = "iothealthcare-269209"
 $LOCATION = "europe-west4"
 $DATASET_ID = "IoTHealthcareDataset"
-$FHIR_STORE_ID = "ResourcesDataStore"
-$RESOURCE_ID = "e3b95e17-3195-4a19-87eb-409cdeb90301"
+$FHIR_STORE_ID = "LocationsDataStore"
+$RESOURCE_ID = "38d1495c-1e36-4789-91fc-bd09e7f42b3c"
 
 Invoke-RestMethod `
   -Method Get `

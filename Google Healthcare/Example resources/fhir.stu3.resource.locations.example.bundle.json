@@ -1,0 +1,18 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+      {
+        "resource": {
+          "resourceType": "Location",
+          "id": "1d4d8441-d4c6-4cc4-a3d0-c1e2a05725fa",
+          "status": "active",          
+          "name": "Vollen Nursing Home",
+          "mode": "instance"
+        },
+        "request": {
+          "method": "POST"
+        }
+      }
+    ]
+  }

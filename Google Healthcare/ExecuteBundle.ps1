@@ -3,7 +3,7 @@ $headers = @{ Authorization = "Bearer $cred" }
 $PROJECT_ID = "iothealthcare-269209"
 $LOCATION = "europe-west4"
 $DATASET_ID = "IoTHealthcareDataset"
-$FHIR_STORE_ID = "ResourcesDataStore"
+$FHIR_STORE_ID = "LocationsDataStore"
 
 Invoke-RestMethod `
   -Method Post `
