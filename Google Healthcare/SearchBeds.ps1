@@ -1,4 +1,5 @@
-﻿$cred = gcloud auth print-access-token
+﻿$env:GOOGLE_APPLICATION_CREDENTIALS="G:\Github\eivholt\Goldilocks\Google Healthcare\Tokens\iothealthcare-269209-44479b79a3cf.json"
+$cred = gcloud auth print-access-token
 $headers = @{ Authorization = "Bearer $cred" }
 $PROJECT_ID = "iothealthcare-269209"
 $LOCATION = "europe-west4"
